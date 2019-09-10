@@ -1,4 +1,4 @@
-# aws-service-catalog-playgound
+# aws-service-catalog-playground
 
 learn [aws service catalog](https://aws.amazon.com/servicecatalog/)
 
