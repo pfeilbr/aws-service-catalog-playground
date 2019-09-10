@@ -13,7 +13,7 @@ learn [aws service catalog](https://aws.amazon.com/servicecatalog/)
 * approved self-service products from Solution Factory
     * e.g. Oracle RDS DB with all security, tags, etc. in place
     * e.g. static web site. S3 + CloudFormation + WAF + ACM (certificate) + Route 53 (hosted zone, domain)
-
+* ** you can include/reference existing product(s) in your product cloudformation template.  This allows for modular composition and nesting.
 
 ---
 
@@ -84,5 +84,6 @@ S3 static website hosting routing rules added (the update)
 ## Resources
 
 * [AWS Service Catalog Documentation](https://docs.aws.amazon.com/servicecatalog/index.html)
+* [aws-samples/aws-service-catalog-reference-architectures](https://github.com/aws-samples/aws-service-catalog-reference-architectures)
 * [AWS Service Catalog - Getting Started](https://www.youtube.com/watch?v=A9kKy6WhqVA&t=318s)
 * [AWS re:Invent 2018: Streamlining Application Development with AWS Service Catalog (DEV328)](https://www.youtube.com/watch?v=jvAAiWxYQwg)
