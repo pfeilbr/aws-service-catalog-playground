@@ -19,7 +19,9 @@ learn [aws service catalog](https://aws.amazon.com/servicecatalog/)
 
 **Launch constraint**
 
-Allows you to assign an IAM role that is used to provision the resources at launch, so you can restrict user permissions without impacting users' ability to provision products from the catalog.
+the IAM role the cloudformation stack provisioning runs under
+
+> Allows you to assign an IAM role that is used to provision the resources at launch, so you can restrict user permissions without impacting users' ability to provision products from the catalog.
 
 Launch constraint for a product must be added at Portfolio level
 
