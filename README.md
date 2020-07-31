@@ -23,7 +23,7 @@ The following is a simple example of a "Static Website" product for the service 
 
 ---
 
-**Launch constraint**
+**Define Launch Constraint**
 
 the IAM role the cloudformation stack provisioning runs under
 
