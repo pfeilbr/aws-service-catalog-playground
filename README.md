@@ -17,6 +17,12 @@ learn [aws service catalog](https://aws.amazon.com/servicecatalog/)
 
 ---
 
+## Example Use Case | Static Website
+
+The following is a simple example of a "Static Website" product for the service catalog.  It's an S3 bucket with website enabled for it.  This product is purposely kept simple to keep the focus on Service Catalog, but a product can be make up of anything that can be expressed via a [CloudFormation](https://aws.amazon.com/cloudformation/) template.
+
+---
+
 **Launch constraint**
 
 the IAM role the cloudformation stack provisioning runs under
