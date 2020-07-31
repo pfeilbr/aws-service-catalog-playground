@@ -10,10 +10,10 @@ learn [aws service catalog](https://aws.amazon.com/servicecatalog/)
     * access to portfolios is via IAM users, groups, roles
 * IT administrator creates products and portfolios and grants access
 * End user accesses products and deploys them
-* approved self-service products from Solution Factory
-    * e.g. Oracle RDS DB with all security, tags, etc. in place
+* example use cases: approved self-service products from Solution Factory
     * e.g. static web site. S3 + CloudFormation + WAF + ACM (certificate) + Route 53 (hosted zone, domain)
-* ** you can include/reference existing product(s) in your product cloudformation template.  This allows for modular composition and nesting.
+    * e.g. Oracle RDS DB with all security, tags, etc. in place
+* can include/reference existing product(s) in your product cloudformation template.  This *enables modular composition and nesting*.
 
 ---
 
