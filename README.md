@@ -13,6 +13,7 @@ learn [aws service catalog](https://aws.amazon.com/servicecatalog/)
 * example use cases: approved self-service products from Solution Factory
     * e.g. static web site. S3 + CloudFormation + WAF + ACM (certificate) + Route 53 (hosted zone, domain)
     * e.g. Oracle RDS DB with all security, tags, etc. in place
+* Service Actions - enable end users to perform operational tasks, troubleshoot issues, run approved commands, or request permissions in AWS Service Catalog via SSM docs.
 * can include/reference existing product(s) in your product cloudformation template.  This *enables modular composition and nesting*.
 
 ---
