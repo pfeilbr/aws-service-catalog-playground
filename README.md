@@ -2,8 +2,19 @@
 
 learn [aws service catalog](https://aws.amazon.com/servicecatalog/)
 
+---
 
-**Concepts**
+* [aws-service-catalog-playground](#aws-service-catalog-playground)
+    * [Concepts](#concepts)
+    * [Service Catalog Pipeline](#service-catalog-pipeline)
+    * [CloudFormation Support](#cloudformation-support)
+        * [Composing Solutions with AWS Service Catalog Provisioned Products](#composing-solutions-with-aws-service-catalog-provisioned-products)
+    * [Example Use Case | Static Website](#example-use-case--static-website)
+    * [Resources](#resources)
+
+---
+
+## Concepts
 
 * products are cloudformation templates
 * portfolio is collection of products
@@ -15,6 +26,115 @@ learn [aws service catalog](https://aws.amazon.com/servicecatalog/)
     * e.g. Oracle RDS DB with all security, tags, etc. in place
 * Service Actions - enable end users to perform operational tasks, troubleshoot issues, run approved commands, or request permissions in AWS Service Catalog via SSM docs.
 * can include/reference existing product(s) in your product cloudformation template.  This *enables modular composition and nesting*.
+
+---
+
+## Service Catalog Pipeline
+
+Service catalog can be used to deliver products to all spoke accounts in an org.
+
+Central hub account that provisions AWS Service Catalog Products into spoke accounts on your behalf
+
+![](https://service-catalog-tools-workshop.com/sc_factory.png)
+
+
+![](https://service-catalog-tools-workshop.com/sc_puppet.png)
+
+---
+
+## CloudFormation Support
+
+Service Catalog resources can be created using CloudFormation.  See [AWS Service Catalog resource type reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_ServiceCatalog.html).
+
+You can provision a Service Catalog Product using the [`AWS::ServiceCatalog::CloudFormationProvisionedProduct`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-cloudformationprovisionedproduct.html) resource type.
+
+For example, if you have a service catalog product named `MyProduct` you can provision an instance of it using the following cfn.
+
+```yaml
+
+      AWSTemplateFormatVersion: '2010-09-09'
+      Description: My Service Catalog Provisioned Product
+      Resources:
+         MyProvisionedProduct:
+           Type: AWS::ServiceCatalog::CloudFormationProvisionedProduct
+           Properties:
+            ProductName: MyProduct
+            ProvisioningArtifactName: '1.0'
+            ProvisioningParameters:
+               -
+                  Key: param1
+                  Value: "param1value"
+               -
+                  Key: param2
+                  Value: "param2Value"
+```
+
+### Composing Solutions with AWS Service Catalog Provisioned Products
+
+> AWS Service Catalog now supports obtaining outputs from a Service Catalog provisioned product in an AWS CloudFormation template. Product outputs provide the interface from one product to another. With this new feature, administrators and developers can easily refer to those outputs in order to combine the products needed for their applications, which saves time building applications that use more than one product, such as a three-tier web application.
+
+* [Provisioned product outputs are now available in AWS Service Catalog](https://aws.amazon.com/about-aws/whats-new/2020/07/provisioned-product-outputs-now-available-aws-service-catalog/).
+ * Enabled via [`AWS::ServiceCatalog transform`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-servicecatalog.html)
+
+Example cfn from docs
+
+```yaml
+     // Example 1
+    AWSTemplateFormatVersion: 2010-09-09
+    Transform: 'AWS::ServiceCatalog'
+    Resources:
+      ExampleParameter:
+        Type: 'AWS::SSM::Parameter'
+        Properties:
+          Type: String
+          Value: '[[servicecatalog:provisionedproduct:SampleProvisionedProduct:SampleOutputKey]]'
+
+    // Example 2
+    AWSTemplateFormatVersion: 2010-09-09
+    Transform: 'AWS::ServiceCatalog'
+    Resources:
+      ExampleParameter:
+        Type: 'AWS::SSM::Parameter'
+        Properties:
+          Type: String
+          Value: '[[servicecatalog:provisionedproduct:SampleProvisionedProduct:SampleOutputKey]]'
+
+
+    // Example 3
+    AWSTemplateFormatVersion: 2010-09-09
+    Transform: AWS::ServiceCatalog
+    Resources:
+      ExampleParameter:
+        Type: 'AWS::SSM::Parameter'
+        Properties:
+          Type: String
+          Value: "[[servicecatalog:provisionedproduct:SampleProvisionedProduct:SampleOutputKey]]"
+
+
+    // Example 4
+
+    AWSTemplateFormatVersion: 2010-09-09
+    Transform: AWS::ServiceCatalog
+    Resources:
+      ExampleParameter:
+        Type: 'AWS::SSM::Parameter'
+        Properties:
+          Type: String
+          Value: >-
+            [[servicecatalog:provisionedproduct:SampleProvisionedProduct:SampleOutputKey]]
+
+
+    // Example 5
+    AWSTemplateFormatVersion: 2010-09-09
+    Transform: AWS::ServiceCatalog
+    Resources:
+      ExampleParameter2:
+        Type: 'AWS::SSM::Parameter'
+        Properties:
+          Type: String
+          Value: [[servicecatalog:provisionedproduct:SSMProductProvisionedProduct:SampleOutputKey]]
+```
+
 
 ---
 
@@ -90,8 +210,14 @@ S3 static website hosting routing rules added (the update)
 
 ## Resources
 
+* [AWS Service Catalog | AWS Management &amp; Governance Blog](https://aws.amazon.com/blogs/mt/category/management-tools/aws-service-catalog/) - all aws blogs posts tagged with "AWS Service Catalog"
 * [AWS Service Catalog Documentation](https://docs.aws.amazon.com/servicecatalog/index.html)
+* [service-catalog-tools-workshop.com/](https://service-catalog-tools-workshop.com/)
 * [aws-samples/aws-service-catalog-reference-architectures](https://github.com/aws-samples/aws-service-catalog-reference-architectures)
 * [AWS Service Catalog - Getting Started](https://www.youtube.com/watch?v=A9kKy6WhqVA&t=318s)
+* [Simplify sharing your AWS Service Catalog portfolios in an AWS Organizations setup | Amazon Web Services](https://aws.amazon.com/blogs/mt/simplify-sharing-your-aws-service-catalog-portfolios-in-an-aws-organizations-setup/)
 * [AWS re:Invent 2018: Streamlining Application Development with AWS Service Catalog (DEV328)](https://www.youtube.com/watch?v=jvAAiWxYQwg)
 * [AWS CloudFormation support for AWS Service Catalog products](https://aws.amazon.com/blogs/mt/how-to-launch-secure-and-governed-aws-resources-with-aws-cloudformation-and-aws-service-catalog/)
+* [GitHub - AlexRex/cdk-service-catalog: Showcase how to do a service catalog using CDK](https://github.com/AlexRex/cdk-service-catalog)
+* [Standardize compliance in AWS using DevOps and a Cloud Center of Excellence (CCOE) approach | Amazon Web Services](https://aws.amazon.com/blogs/mt/standardize-compliance-in-aws-using-devops-and-a-cloud-center-of-excellence-ccoe-approach/) - example pipeline to delivery service catalog portfolio across all accounts in org.
+* local evernote search `tag:service-catalog`
