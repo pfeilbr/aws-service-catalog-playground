@@ -8,6 +8,7 @@ learn [aws service catalog](https://aws.amazon.com/servicecatalog/)
     * [Concepts](#concepts)
     * [Service Catalog Pipeline](#service-catalog-pipeline)
     * [CloudFormation Support](#cloudformation-support)
+        * [Provision a Service Catalog Product Instance using CloudFormation](#provision-a-service-catalog-product-instance-using-cloudformation)
         * [Composing Solutions with AWS Service Catalog Provisioned Products](#composing-solutions-with-aws-service-catalog-provisioned-products)
     * [Example Use Case | Static Website](#example-use-case--static-website)
     * [Resources](#resources)
@@ -45,6 +46,8 @@ Central hub account that provisions AWS Service Catalog Products into spoke acco
 ## CloudFormation Support
 
 Service Catalog resources can be created using CloudFormation.  See [AWS Service Catalog resource type reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_ServiceCatalog.html).
+
+### Provision a Service Catalog Product Instance using CloudFormation
 
 You can provision a Service Catalog Product using the [`AWS::ServiceCatalog::CloudFormationProvisionedProduct`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-cloudformationprovisionedproduct.html) resource type.
 
@@ -207,6 +210,8 @@ S3 static website hosting routing rules added (the update)
 "Backing" CloudFormation Stack Details
 
 ![](https://www.evernote.com/l/AAGr49-QQOBJE6I-V_E5_ohqBxvXwhOCql4B/image.png)
+
+---
 
 ## Resources
 
